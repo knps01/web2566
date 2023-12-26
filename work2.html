@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+        <a-assets>
+            <img id="img" src="/public/img/img1.jpg">
+            <img id="cat" src="/public/img/profile.jpg">
+        </a-assets>
+
+        <a-camera>
+            <a-cursor color="#454545"></a-cursor>
+        </a-camera>
+
+        <a-box position="-1 0.5 -3" rotation="0 45 0" 
+        animation="property: position; to: 0 1 -5; dur: 2000; easing: linear" 
+        animation__2="property: rotation;; to: 0 360 0; dur: 5000; loop: true;" src="#cat"></a-box>
+
+        <a-box position="-6 -5 -10" scale="1 1 1" color="#FFC65D"
+        animation="property: position; to: 0 5 -5; dur: 10000; easing: linear; loop: true;"
+        animation__2="property: rotation; to: 0 90 90; dur: 500; loop: true;" ></a-box>   
+
+        <a-box position="6 -5 -10" scale="1 1 1" color="#DC143C"
+        animation="property: position; to: 0 5 -5; dur: 10000; easing: linear; loop: true;"
+        animation__2="property: rotation; to: 0 90 90; dur: 500; loop: true;" ></a-box>  
+
+        <a-sky color="#ECFFFF" src="#img" radius="40" materail geomatry scale></a-sky>
+
+        <a-text value="Work2" color="#FFFFFF" scale="2 2 2" position="-0.9 3 -4"></a-text>
+
+        <a-text value="Mobile Web Application Development" color="#FFFFFF" scale="1 1 1" position="-1.8 2 -2"></a-text>
+
+        <a-text value="Kingnapa Singharach 653380369-4" color="#FFFFFF" scale="1 1 1" position="-5 1 -2"
+        animation="property: position; to: -1 1 -2.2; dur: 8000; easing: linear; loop: false"></a-text>
+        
+    </a-scene>
+  </body>
+</html>
