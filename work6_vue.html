@@ -53,11 +53,29 @@
                         </table>
 
                     </v-card-text>
+
+                    <v-card-actions>
+                        <template v-if="user">
+                            <div class="pa-2">
+                                <v-avatar><img :src="user.photoURL" /></v-avatar>
+                            </div>
+                            <div class="pa-2">
+                                {{user.displayName}}<br />
+                                {{user.email}}<br />
+                            </div>
+                            <div>{{ustudent}}</div>
+                        </template>
+                        <v-btn @click="google_login()" v-if="!user"> Login</v-btn>
+                        <v-btn @click="google_logout()" v-if="user"> Logout</v-btn>
+                    </v-card-actions>
+
                     <v-card-actions>
                         <v-btn @click="readData()">Read Data (get)</v-btn>
                         <v-btn @click="autoRead()">Auto Read (onSnapshot)</v-btn>
                         <v-btn @click="addData()">Add Data</v-btn>
                     </v-card-actions>
+
+
                 </v-card>
 
                 <v-card v-if="editmode">
@@ -77,27 +95,11 @@
                     </v-card-actions>
                 </v-card>
 
-                <v-card-actions>
-                    <template v-if="user">
-                        <div class="pa-2">
-                            <v-avatar><img :src="user.photoURL" /></v-avatar>
-                        </div>
-                        <div class="pa-2">
-                            {{user.displayName}}<br />
-                            {{user.email}}<br />
-                        </div>
-                    </template>
-                    <v-btn @click="google_login()" v-if="!user"> Login</v-btn>
-                    <v-btn @click="google_logout()" v-if="user"> Logout</v-btn>
-                </v-card-actions>
-
-
                 <div class="pa-6 text-center">{{footer}}</div>
             </v-container>
         </v-app>
     </div>
 
-    <div>{{ustudent}}</div>
 
     <script>
         const vuetify = Vuetify.createVuetify();
@@ -139,22 +141,8 @@
                 });
             },
 
-
-            google_login() {
-                // Using a popup.
-                var provider = new firebase.auth.GoogleAuthProvider();
-                provider.addScope("profile");
-                provider.addScope("email");
-                firebase.auth().signInWithPopup(provider);
-            },
-            google_logout() {
-                if (confirm("Are you sure?")) {
-                    firebase.auth().signOut();
-                }
-            },
-
-
             methods: {
+
                 readData() {
                     db.collection("Students")
                         .get()
@@ -181,6 +169,18 @@
                     this.editstd = {};
                 },
 
+                google_login() {
+                    var provider = new firebase.auth.GoogleAuthProvider();
+                    provider.addScope("profile");
+                    provider.addScope("email");
+                    firebase.auth().signInWithPopup(provider);
+                },
+                google_logout() {
+                    if (confirm("Are you sure?")) {
+                        firebase.auth().signOut();
+                    }
+                },
+
                 getstudent(email) {
                     db.collection("Students")
                         .where("email", "==", email)
@@ -194,7 +194,6 @@
                             }
                         );
                 },
-
             },
         });
         app.use(vuetify).mount("#app");
